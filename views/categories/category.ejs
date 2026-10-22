@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= category.name %></title>
+</head>
+<body>
+    <h1><%= category.name %></h1>
+
+    <% if (category.description) { %>
+        <p><%= category.description %></p>
+    <% } %>
+
+    <% if (categoryItems.length === 0) { %>
+        <p>No parts for this category yet.</p>
+    <% } else { %>
+        <ul>
+            <% categoryItems.forEach((item) => { %>
+                <li>
+                    <%= item.name %> (<%= item.brand %>):
+                    <%= Number(item.price).toFixed(2) %>,
+                    <%= item.quantity %> in stock
+                </li>
+            <% }); %>
+        </ul>
+    <% } %>
+
+    <% if (categoryItems.length === 0) { %>
+        <form action="/categories/<%= category.id %>/delete" method="POST">
+            <button type="submit">Delete category</button>
+        </form>
+    <% } else { %>
+        <p>Remove or move this category's parts before deleting it.</p>
+    <% } %>
+    <a href="/categories/<%= category.id %>/edit">Edit category</a>
+    <a href="/categories">Back to all categories</a>
+</body>
+</html>

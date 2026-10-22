@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1><%= part.name %></h1>
+
+    <% if (part.description) { %>
+        <p><%= part.description %></p>
+    <% } %>
+
+    <ul>
+        <li>Brand: <a href="/brands/<%= part.brand_id %>"><%= part.brand %></a></li>
+        <li>Category: <a href="/categories/<%= part.category_id %>"><%= part.category %></a></li>
+        <li>Price: £<%= Number(part.price).toFixed(2) %></li>
+        <li>In stock: <%= part.quantity %></li>
+        <li><a href="/parts/<%=part.id %>/edit">Edit</a> </li>
+        <form action="/parts/<%= part.id %>/delete" method="POST"
+        onsubmit="return confirm('Delete this part?');">
+            <button type="submit">Delete part</button>
+        </form>
+    </ul>
+
+    <a href="/">Back to all parts</a>
+</body>
+</html>

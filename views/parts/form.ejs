@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1><%= title %></h1>
+
+    <%- include("../partials/errors") %>
+
+    <form action="<%= action %>" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" maxlength="100" value="<%= part.name || '' %>" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" maxlength="500"><%= part.description || '' %></textarea>
+
+        <label for="price">Price (£):</label>
+        <input type="number" id="price" name="price" min="0" step="0.01" value="<%= part.price ?? '' %>" required>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="0" step="1" value="<%= part.quantity ?? 0 %>" required>
+
+        <label for="brand_id">Brand:</label>
+        <select id="brand_id" name="brand_id" required>
+            <option value="">Choose a brand</option>
+            <% brands.forEach((brand) => { %>
+                <option value="<%= brand.id %>" <%= Number(part.brand_id) === brand.id ? "selected" : "" %>>
+                    <%= brand.name %>
+                </option>
+            <% }); %>
+        </select>
+
+        <label for="category_id">Category:</label>
+        <select id="category_id" name="category_id" required>
+            <option value="">Choose a category</option>
+            <% categories.forEach((category) => { %>
+                <option value="<%= category.id %>" <%= Number(part.category_id) === category.id ? "selected" : "" %>>
+                    <%= category.name %>
+                </option>
+            <% }); %>
+        </select>
+
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="/">Cancel</a>
+</body>
+</html>

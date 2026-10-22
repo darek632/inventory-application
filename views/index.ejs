@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/styles.css">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to your inventory manager</h1>
+    <a href="/parts/new">Add part</a>
+
+    <h2><%= title %></h2>
+
+    <h3>This is where your things will go:</h3>
+    
+    <ul>
+        <% allParts.forEach((part) => { %>
+
+            <li>
+               <b> <a href="/parts/<%= part.id %>"> <%= part.name %> </a>  </b>
+                <p> <a href="/brands/<%=part.brand_id%>"> <%= part.brand %> </a> </p>
+                <p> <a href="/categories/<%= part.category_id%> "><%= part.category %></a></p>
+            </li>
+
+        <% });%>
+    </ul>
+
+    
+</body>
+</html>
