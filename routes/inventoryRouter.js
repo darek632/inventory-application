@@ -39,7 +39,7 @@ inventoryRouter.post("/brands/:id/edit", inventoryController.brandEditPost);
 inventoryRouter.get("/categories", inventoryController.allCategoriesGet);
 
 inventoryRouter.get("/categories/new", inventoryController.categoryNewGet);
-inventoryRouter.post("/categories/new", inventoryController.categoryNewGet);
+inventoryRouter.post("/categories/new", inventoryController.categoryNewPost);
 
 inventoryRouter.get("/categories/:id", inventoryController.oneCategoryGet);
 

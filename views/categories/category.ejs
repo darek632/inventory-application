@@ -3,37 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title><%= category.name %></title>
 </head>
 <body>
-    <h1><%= category.name %></h1>
+    
+    <%- include('../partials/header') %>
+  <main class="theme-categories">
+        <div class="page-title">
+            <h1><%= category.name %></h1>
+            <% if (category.description) { %>
+                <p><%= category.description %></p>
+            <% } %>
+        </div>
 
-    <% if (category.description) { %>
-        <p><%= category.description %></p>
-    <% } %>
+        <%- include('../partials/errors') %>
 
-    <% if (categoryItems.length === 0) { %>
-        <p>No parts for this category yet.</p>
-    <% } else { %>
-        <ul>
-            <% categoryItems.forEach((item) => { %>
-                <li>
-                    <%= item.name %> (<%= item.brand %>):
-                    <%= Number(item.price).toFixed(2) %>,
-                    <%= item.quantity %> in stock
-                </li>
-            <% }); %>
-        </ul>
-    <% } %>
+        <% if (categoryItems.length === 0) { %>
+            <p>No parts in this category yet.</p>
+        <% } else { %>
+            <ul class="grid">
+                <% categoryItems.forEach((item) => { %>
+                    <li class="card">
+                        <span class="label"><%= item.brand %></span>
+                        <h3><a href="/parts/<%= item.id %>"><%= item.name %></a></h3>
+                        <p class="meta">
+                            £<%= Number(item.price).toFixed(2) %> ·
+                            <%= item.quantity %> in stock
+                        </p>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
 
-    <% if (categoryItems.length === 0) { %>
-        <form action="/categories/<%= category.id %>/delete" method="POST">
-            <button type="submit">Delete category</button>
-        </form>
-    <% } else { %>
-        <p>Remove or move this category's parts before deleting it.</p>
-    <% } %>
-    <a href="/categories/<%= category.id %>/edit">Edit category</a>
-    <a href="/categories">Back to all categories</a>
+        <div class="actions">
+            <a href="/categories/<%= category.id %>/edit" class="btn">Edit category</a>
+
+            <% if (categoryItems.length === 0) { %>
+                <form action="/categories/<%= category.id %>/delete" method="POST"
+                      onsubmit="return confirm('Delete this category?');">
+                    <button type="submit" class="danger">Delete category</button>
+                </form>
+            <% } %>
+
+            <a href="/categories" class="btn btn-secondary">Back to all categories</a>
+        </div>
+
+        <% if (categoryItems.length > 0) { %>
+            <p>Remove or move this category's parts before deleting it.</p>
+        <% } %>
+    </main>
 </body>
 </html>

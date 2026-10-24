@@ -3,23 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title><%= title %></title>
 </head>
 <body>
-    <h1><%= title %></h1>
+    <%- include('../partials/header') %>
 
-    <% if (brands.length === 0) { %>
-        <p>No brands yet.</p>
-    <% } else { %>
-        <ul>
-            <% brands.forEach((brand) => { %>
-                <li>
-                    <a href="/brands/<%= brand.id %>"><%= brand.name %></a>
-                </li>
-            <% }); %>
-        </ul>
-    <% } %>
-    <a href="/brands/new">Add brand</a>
-    <a href="/">Back to all parts</a>
+    <main class="theme-brands">
+        <div class="page-title">
+            <h1><%= title %></h1>
+            <p>Browse parts by brand.</p>
+        </div>
+
+        <% if (brands.length === 0) { %>
+            <p>No brands yet.</p>
+        <% } else { %>
+            <ul class="grid">
+                <% brands.forEach((brand) => { %>
+                    <li class="card">
+                        <span class="label">Brand</span>
+                        <h3><a href="/brands/<%= brand.id %>"><%= brand.name %></a></h3>
+                        <% if (brand.description) { %>
+                            <p class="meta"><%= brand.description %></p>
+                        <% } %>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } %>
+
+        <div class="actions">
+            <a href="/brands/new" class="btn">Add brand</a>
+            <a href="/" class="btn btn-secondary">Back to all parts</a>
+        </div>
+    </main>
 </body>
 </html>

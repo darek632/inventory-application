@@ -3,23 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="/styles.css">
     <title><%= title %></title>
 </head>
 <body>
-    <h1><%= title %></h1>
 
-    <%- include("../partials/errors") %>
+     <%- include('../partials/header') %>
+     
 
-    <form action="<%= action %>" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" maxlength="100" value="<%= brand.name || '' %>" required>
+    <main class="theme-brands">
+        <div class="page-title">
+            <h1><%= title %></h1>
+            <% if (brand.description) { %>
+                <p><%= brand.description %></p>
+            <% } %>
+        </div>
+       
+        <%- include("../partials/errors") %>
 
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" maxlength="500"><%= brand.description || '' %></textarea>
+        <form class="stack" action="<%= action %>" method="POST">
 
-        <button type="submit">Save</button>
-    </form>
+            <div class="field">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" maxlength="100" value="<%= brand.name || '' %>" required>
+            </div>
+            
+            <div class="field">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" maxlength="500"><%= brand.description || '' %></textarea>
+            </div>
+            
+            <div class="actions">
+                <button type="submit">Save</button>
+                <a href="/brands" class="btn btn-secondary">Cancel</a>
 
-    <a href="/brands">Cancel</a>
+            </div>
+            
+        </form>
+    </main>
+
+   
 </body>
 </html>

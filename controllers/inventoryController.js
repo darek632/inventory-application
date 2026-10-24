@@ -68,7 +68,7 @@ exports.inventoryGet = async (req,res) => {
     const allParts = await db.getAllParts();
 
     
-    res.render("index", {title: "Bike parts", allParts})
+    res.render("index", {title: "All parts", allParts})
 };
 
 exports.allBrandsGet = async (req,res) => { 

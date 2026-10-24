@@ -1,3 +1,180 @@
-li { 
-    border: 1px solid red;
+/* 
+   Colour coding: Parts = green, Brands = blue, Categories = orange.
+   Put class="theme-parts" / "theme-brands" / "theme-categories" on <main>
+   and everything inside (title band, labels, link hovers, buttons) picks up that colour. */
+
+:root {
+  --ink: #0d1b14;
+  --paper: #f4f1e8;
+  --header: #f4f1e8;
+
+  --parts: #0e7d48;;            /* bold green */
+  --parts-text: #0d1b14;
+  --brands: #23bced;           /* teal blue */
+  --brands-text: #ffffff;
+  --categories: #ff7a00;       /* vivid orange */
+  --categories-text: #0d1b14;
+
+  --danger: #d32f2f;
+  --accent: #ffd400;
+  --border: 3px solid var(--ink);
+  --radius: 6px;
+
+  /* default theme if a page doesn't set one */
+  --c: var(--parts);
+  --c-text: var(--parts-text);
+}
+
+.theme-parts,      .btn-parts      { --c: var(--parts);      --c-text: var(--parts-text); }
+.theme-brands,     .btn-brands     { --c: var(--brands);     --c-text: var(--brands-text); }
+.theme-categories, .btn-categories { --c: var(--categories); --c-text: var(--categories-text); }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+a { color: var(--ink); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+a:hover { background: var(--c); color: var(--c-text); }
+
+/* ---------- Header / nav ---------- */
+.site-header {
+  background: var(--header);
+  border-bottom: var(--border);
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-title { margin: 0; font-size: 1.4rem; }
+.home-link { color: var(--ink); text-decoration: none; font-weight: 800; }
+.home-link:hover { background: var(--accent); color: var(--ink); }
+.action-nav { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+/* header buttons: solid = add actions, outline = browse pages */
+.site-header .btn { box-shadow: none; padding: 0.4rem 0.9rem; }
+.site-header .btn:hover { background: var(--accent); color: var(--ink); border-color: var(--accent); transform: none; box-shadow: none; }
+/* .site-header .btn-outline { background: transparent; color: var(--paper); } */
+.site-header .btn-outline:hover { background: var(--accent); color: var(--c-text); border-color: var(--c); }
+
+/* ---------- Layout ---------- */
+main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+.page-title {
+  background: var(--c);
+  color: var(--c-text);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.page-title h1 { margin: 0; font-size: clamp(1.8rem, 5vw, 3rem); line-height: 1.1; }
+.page-title p { margin: 0.5rem 0 0; max-width: 60ch; }
+
+h2 { font-size: 1.6rem; border-bottom: var(--border); padding-bottom: 0.3rem; }
+
+
+/* ---------- Stat blocks ---------- */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat { background: var(--accent); border: var(--border); border-radius: var(--radius); padding: 1rem; }
+.stat strong { display: block; font-size: 2.5rem; line-height: 1; }
+
+/* ---------- Card grid ---------- */
+.grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.card {
+  background: #fff;
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.card:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--c); }
+.card .label {
+  display: inline-block;
+  background: var(--c);
+  color: var(--c-text);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+.card h3 { margin: 0.6rem 0 0.3rem; font-size: 1.2rem; }
+.card h3 a { text-decoration: none; }
+.card .meta { margin: 0; font-size: 0.95rem; }
+
+.card.detail { max-width: 640px; }
+.card.detail:hover { transform: none; box-shadow: 5px 5px 0 var(--ink); }
+
+
+/* ---------- Buttons ---------- */
+.btn, button {
+  display: inline-block;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  background: var(--c);
+  color: var(--c-text);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 0.55rem 1.1rem;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.btn:hover, button:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--c);
+}
+.btn-secondary { background: var(--paper); color: var(--ink); }
+.btn-danger, button.danger { background: var(--danger); color: #fff; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+
+/* ---------- Forms ---------- */
+form.stack {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 520px;
+  background: #fff;
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 5px 5px 0 var(--c);
+}
+.field { display: grid; gap: 0.25rem; }
+label { font-weight: 700; }
+input, select, textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.55rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+input:focus, select:focus, textarea:focus { outline: 3px solid var(--c); outline-offset: 1px; }
+textarea { min-height: 6rem; resize: vertical; }
+
+
+
+
+/* ---------- Validation errors ---------- */
+.errors { background: #fdecea; border: 3px solid var(--danger); border-radius: var(--radius); padding: 0.75rem 1.25rem; margin-bottom: 1.25rem; }
+.errors ul { margin: 0; padding-left: 1.2rem; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--header); color: var(--paper); border-top: var(--border); padding: 1.5rem; text-align: center; }
+
+@media (max-width: 600px) {
+  .page-title { padding: 1.25rem 1rem; }
+  main { padding: 1.25rem 1rem 3rem; }
 }

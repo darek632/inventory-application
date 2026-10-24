@@ -3,26 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title><%= title %></title>
 </head>
 <body>
-    <h1><%= part.name %></h1>
 
-    <% if (part.description) { %>
-        <p><%= part.description %></p>
-    <% } %>
+    <%- include('../partials/header') %>
 
-    <ul>
-        <li>Brand: <a href="/brands/<%= part.brand_id %>"><%= part.brand %></a></li>
-        <li>Category: <a href="/categories/<%= part.category_id %>"><%= part.category %></a></li>
-        <li>Price: £<%= Number(part.price).toFixed(2) %></li>
-        <li>In stock: <%= part.quantity %></li>
-        <li><a href="/parts/<%=part.id %>/edit">Edit</a> </li>
-        <form action="/parts/<%= part.id %>/delete" method="POST"
-        onsubmit="return confirm('Delete this part?');">
-            <button type="submit">Delete part</button>
+    <div class="page-title">
+        <h1><%= part.name %></h1>
+        <% if (part.description) { %>
+            <p><%= part.description %></p>
+        <% } %>
+    </div>
+
+    <%- include('../partials/errors') %>
+
+    <section class="card detail">
+
+   
+    <div class="stats">
+        <div class="stat">
+            <strong>Price: £<%= Number(part.price).toFixed(2) %></strong>
+        </div>
+        <div class="stat">
+            <strong><%= part.quantity %> in stock</strong>
+        </div>
+    </div>
+    <div class="actions">
+        Brand: <a href="/brands/<%= part.brand_id %>" class="btn btn-brands"><%= part.brand %></a>
+        Category: <a href="/categories/<%= part.category_id %>" class="btn btn-categories">Category: <%= part.category %></a>
+
+    </div> 
+    <div class="actions">
+         <a href="/parts/<%=part.id %>/edit" class="btn">Edit</a>
+          <form action="/parts/<%= part.id %>/delete" method="POST"
+            onsubmit="return confirm('Delete this part?');">
+            <button type="submit" class="danger">Delete part</button>
         </form>
-    </ul>
+
+    </div>
+    
+    </section>
+       
+       
+    
 
     <a href="/">Back to all parts</a>
 </body>

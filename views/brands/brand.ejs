@@ -3,49 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
     <title><%= brand.name %> </title>
 </head>
 <body>
-    <h1> <%= brand.name %></h1>
-
-     <% if (brand.description) { %>
-        <p><%= brand.description %></p>
-    <% } %>
-
-    <% if (brandItems.length === 0) { %>
-
-        <p>No items from <%= brand.name %> are currently available.</p>
-    
-    <% } else { %>
-
-        <ul>
-            <% brandItems.forEach((item) => { %>
-                
-                <li>
-                    <p><%= item.name %> </p>
-                    <p> £<%= Number(item.price).toFixed(2) %></p>
-                    <p> <%= item.quantity %> in stock </p>
-                    <a href="/categories/<%=item.category_id %> "> <%= item.category %></a>
-                </li>
-
-           <% }); %> 
 
 
-        </ul>
+     <%- include('../partials/header') %>
+
+     <main class="theme-brands">
+        <div class="page-title">
+            <h2 class="section-title"><%= brand.name %></h2>
+            <p class="subtitle">Here is an overview of your brand:</p>
+        </div>
 
 
-    <% } %>
+        <% if (brand.description) { %>
+            <p><%= brand.description %></p>
+        <% } %>
 
-    <% if (brandItems.length === 0) { %>
-        <form action="/brands/<%= brand.id %>/delete" method="POST">
-            <button type="submit">Delete brand</button>
-        </form>
-    <% } else { %>
-        <p>Remove or move this brand's parts before deleting it.</p>
-    <% } %>
-<a href="/brands/<%= brand.id %>/edit">Edit brand</a>
-<a href="/brands">Back to all brands</a>
+        <% if (brandItems.length === 0) { %>
 
+            <p>No items from <%= brand.name %> are currently available.</p>
+        
+        <% } else { %>
+
+            <ul class="grid">
+                <% brandItems.forEach((item) => { %>
+                    
+                    <li class="card">
+                        <h3> <%= item.name %> </h3>
+                        <p> £<%= Number(item.price).toFixed(2) %></p>
+                        <p> <%= item.quantity %> in stock </p>
+                        <a href="/categories/<%=item.category_id %> "> <%= item.category %></a>
+                    </li>
+
+            <% }); %> 
+
+
+            </ul>
+
+
+        <% } %>
+
+        <% if (brandItems.length === 0) { %>
+            <form action="/brands/<%= brand.id %>/delete" method="POST">
+                <button type="submit">Delete brand</button>
+            </form>
+        <% } else { %>
+            <p>Remove or move this brand's parts before deleting it.</p>
+        <% } %>
+
+        <div class="actions">
+            <a href="/brands" class="btn btn-secondary">Back to all brands</a>
+        </div>
+
+    </main>
     
 </body>
 </html>
