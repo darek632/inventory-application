@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
     "seed": "node db/populatedb.js postgresql://darek@localhost:5432/inventory",
     "clear": "node db/cleardb.js postgresql://darek@localhost:5432/inventory"
   },
